@@ -4,7 +4,7 @@ const mongoStore = require('connect-mongo')(session);
 
 // Local connection
 let mongoConnectionLocal = {	
-	'url': `mongodb://127.0.0.1:27017/my-database`
+	'url': `mongodb://127.0.0.1:27017/angular-database`
 };
 
 // Development database from mongolab

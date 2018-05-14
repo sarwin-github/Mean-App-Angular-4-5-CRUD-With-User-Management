@@ -45,6 +45,8 @@ module.exports.signUp = (req, res) => {
 
   user.email    = req.body.email;
   user.password = user.generateHash(req.body.password);
+  user.name     = req.body.name;
+  user.address  = req.body.address;
 
   user.save(err => {
     if(err){

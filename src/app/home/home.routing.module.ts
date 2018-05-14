@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
+import { UserRegistrationComponent } from '../user/user-registration/user-registration.component';
 
 const homeRoute: Routes = [
   	{ path: '', component: HomeComponent },
+  	{ path: 'user/registration', component: UserRegistrationComponent }
 ];
 
 @NgModule({
@@ -13,7 +15,8 @@ const homeRoute: Routes = [
   ],
   exports: [RouterModule],
   declarations: [
-    HomeComponent
+    HomeComponent,
+    UserRegistrationComponent
   ]
 })
 

@@ -1,0 +1,26 @@
+.nav-link{
+	color: whitesmoke !important;
+	font-size: 11px !important;
+	text-transform: uppercase !important;
+	font-weight: 600 !important;
+	letter-spacing: 2px !important;
+}
+
+.nav-link:hover{
+
+	font-size: 12px !important;
+	border-bottom: solid 1px whitesmoke;
+}
+
+.navbar-brand{
+	color: whitesmoke !important;
+}
+
+
+.social-min{
+	text-color: white !important;
+}
+
+.nav{
+  text-align: center;
+}
