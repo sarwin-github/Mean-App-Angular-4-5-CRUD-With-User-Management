@@ -37,7 +37,7 @@ opts.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
 opts.secretOrKey    =  process.env.jwt_secret;
 
 passport.use(new JWTStrategy(opts, (jwt_payload, callback) => {
-    let query = User.findOne({_id: jwt_payload._id}).select({'email': 1, 'name': 1});
+    let query = User.findOne({_id: jwt_payload._id}).select({'__v':0, 'password': 0});
 
     query.exec((err, user) => {
         if (err) {
