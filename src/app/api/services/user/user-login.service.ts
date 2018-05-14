@@ -6,24 +6,24 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-const endpoint = 'http://localhost:4201/api/signup';
+const endpoint = 'http://localhost:4201/api/login';
 
 @Injectable()
-export class UserRegistrationService {
+export class UserLoginService {
 	private isUserLoggedIn: any;
 
 	constructor(private http: Http, private router: Router) { this.isUserLoggedIn = false; }
 
-	// get signup and fitness options anti-csrf token
-	signup(type): Observable<any>{
+	// get login and fitness options anti-csrf token
+	login(type): Observable<any>{
 		return this.http
 		.get(`${endpoint}`, { withCredentials : true})
 		.map(res => res.json())
 		.catch(this.handleError)
 	}
 
-	// post signup user
-	postSignUp(body: any, option:any): Observable<any>{
+	// post login user
+	postLogin(body: any, option:any): Observable<any>{
 		return this.http
 		.post(`${endpoint}`, body, option)
 		.map(res => res.json())
@@ -61,4 +61,5 @@ export class UserRegistrationService {
 	private handleError(error:any, caught:any): any{
 		console.log(error, caught)
 	}
+
 }

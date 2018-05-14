@@ -16,7 +16,7 @@
 .bg-img{
     position:relative;
     margin:0 auto;
-    background-attachment: fixed; 
+    background-attachment: fixed; //This is what is added to the code-sample
     background-repeat: no-repeat;
     height:auto !important;
     width:100%;

@@ -1,14 +1,31 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';  
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';  
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+
+import { AboutComponent } from '../about/about.component';
 import { HomeComponent } from './home.component';
+import { UserListComponent } from '../user/user-list/user-list.component';
+import { UserLoginComponent } from '../user/user-login/user-login.component';
 import { UserRegistrationComponent } from '../user/user-registration/user-registration.component';
+
+import { UserLoginService } from '../api/services/user/user-login.service';
+import { UserGuard } from '../api/guards/user/user.guard';
 
 const homeRoute: Routes = [
   	{ path: '', component: HomeComponent },
-  	{ path: 'user/registration', component: UserRegistrationComponent }
+    { path: 'about', component: AboutComponent },
+  	{ path: 'user', 
+      children: [
+        { path: 'registration', component: UserRegistrationComponent },
+        { path: 'login', component: UserLoginComponent },
+        { 
+          path: 'list', 
+          canActivate: [UserGuard],  
+          component: UserListComponent 
+        }
+    ]}
 ];
 
 @NgModule({
@@ -21,9 +38,13 @@ const homeRoute: Routes = [
   ],
   exports: [RouterModule],
   declarations: [
+    AboutComponent,
     HomeComponent,
+    UserListComponent,
+    UserLoginComponent,
     UserRegistrationComponent
-  ]
+  ],
+  providers: [UserLoginService]
 })
 
 export class HomeRoutingModule { }

@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { HttpHeaders } from '@angular/common/http';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -118,7 +117,7 @@ export class UserRegistrationComponent implements OnInit {
 	ngOnDestroy(){
 		sessionStorage.removeItem('signupError');
 		sessionStorage.removeItem('signupMessage');
-		this.req.unsubscribe();
+
 		if(this.postReq) this.postReq.unsubscribe();
 	}
 }

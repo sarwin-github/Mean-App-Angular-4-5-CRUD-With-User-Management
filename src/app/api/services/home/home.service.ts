@@ -15,7 +15,7 @@ export class HomeService {
 	// get home
 	home(): Observable<any>{
 		return this.http
-		.get(`${endpoint}`)
+		.get(`${endpoint}`, { withCredentials : true})
 		.map(res => res.json())
 		.catch(this.handleError)
 	}

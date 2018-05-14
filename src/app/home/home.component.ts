@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
         private router: Router) { }
 
 	ngOnInit() {
-
 		this.req = this.homeService.home().subscribe((data) => {
 			console.log(data);
 		});
