@@ -1,3 +1,6 @@
+# Server
+In order to run the server locally you must install forever module globally through "npm install forever -g" then run by navigating to `server` folder and executing command `forever start server.js`. CORS has been setup in server to handle requests.
+
 # Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
