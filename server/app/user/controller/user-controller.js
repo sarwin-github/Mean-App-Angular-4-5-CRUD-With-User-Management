@@ -8,59 +8,77 @@ const User  = require("../model/user");
 module.exports.getLogin = (req, res) => {
   res.status(200).json({ 
     success: true, 
+    error  : req.flash('error'),
     message:'Successfully fetched form for login.'
   });
 }
 
 // login user
 module.exports.postLogin = (req, res, next) => {
-  passport.authenticate('local', {session: false}, (err, user, info) => {
-        if (err || !user) {
-            return res.status(400).json({
-                message: info ? info.message : 'Login failed',
-                user   : user
-            });
-        }
+  passport.authenticate('passport-login', {session: false}, (err, user, info) => {
+      if (err) { 
+          req.flash('error', err);
+          return next(err); 
+      } 
+      if (!user) {
+          if(!!info){
+              req.flash('error', info.message);     
+          }
+        return res.redirect('/api/login')
+      } 
 
-        req.login(user, {session: false}, (err) => {
-            if (err) {
-                res.send(err);
-            }
+      req.login(user, {session: false}, (err) => {
+          if (err) {
+              res.send(err);
+          }
 
-            const token = jwt.sign(user.toJSON(), process.env.jwt_secret, { expiresIn: '5h' });
+          const token = jwt.sign(user.toJSON(), process.env.jwt_secret, { expiresIn: '5h' });
 
-            return res.status(200).json({
-              success : true,
-              message : 'You successfully logged in your account',
-              token   : token
-            });
-        });
-    })
-    (req, res);
+          return res.status(200).json({
+            success : true,
+            message : 'You successfully logged in your account',
+            token   : token
+          });
+      });
+  })(req, res, next);
+}
+
+module.exports.getSignupForm = (req, res) =>{
+  res.status(200).json({ 
+    success: true, 
+    error  : req.flash('error'),
+    message:'Successfully fetched form for signup.'
+  });
 }
 
 // create new user
 module.exports.signUp = (req, res) => {
-  let user = new User();
+  passport.authenticate('passport-signup', {session: false}, (err, user, info) => {
+      if (err) { 
+          req.flash('error', err);
+          return next(err); 
+      } 
+      if (!user) {
+          if(!!info){
+              req.flash('error', info.message);     
+          }
+        return res.redirect('/api/signup')
+      } 
 
-  user.email    = req.body.email;
-  user.password = user.generateHash(req.body.password);
-  user.name     = req.body.name;
-  user.address  = req.body.address;
+      req.login(user, {session: false}, (err) => {
+          if (err) {
+              res.send(err);
+          }
 
-  user.save(err => {
-    if(err){
-      return res.status(200).json({
-        err:err, 
-        message: 'Something went wrong.'
+          const token = jwt.sign(user.toJSON(), process.env.jwt_secret, { expiresIn: '5h' });
+
+          return res.status(200).json({
+            success : true,
+            message : 'You successfully logged in your account',
+            token   : token
+          });
       });
-    }
-
-    res.status(200).json({
-      success: true,
-      message:"successfully added new user"
-    });
-  })
+  })(req, res);
 }
 
 
