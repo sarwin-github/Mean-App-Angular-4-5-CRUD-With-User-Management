@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import {fadeIn} from '../../animations/fade-in';
 import { UserRegistrationService } from '../../api/services/user/user-registration.service';
+import { PasswordValidation } from '../../api/guards/password-validation/password-validation';
 
 @Component({
 	selector: 'app-user-registration',
@@ -36,7 +37,7 @@ export class UserRegistrationComponent implements OnInit {
 	      'confirmPassword' : [null, Validators.compose([Validators.required, Validators.minLength(6)])],
 	      'name'       : [null, Validators.compose([Validators.required])],
 	      'address'    : [null, Validators.compose([Validators.required])]
-	    });
+	    }, { validator: PasswordValidation.MatchPassword });
 
 		window.scroll(0,0);
 	}

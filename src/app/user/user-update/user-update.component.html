@@ -21,22 +21,27 @@
 
             	<fieldset>
             		<div class="form-group">
-            	      <label for="name" class="col-md-6 control-label">Email: {{user.email}}</label>
+            	        <label for="name" class="col-md-6 control-label">Email: {{user.email}}</label>
             	    </div>
 
             	    <div class="form-group">
-            	      <label for="name" class="col-md-6 control-label">Name:</label>
-            	      <div class="col-md-12">
-            	        <input type="text" class="form-control" id="name" name='name' placeholder="Name" [(ngModel)]="user.name" formControlName="name" required>
-            	      </div>
+            	        <label for="name" class="col-md-6 control-label">Name:</label>
+            	        <div class="col-md-12">
+                	        <input type="text" class="form-control" id="name" name='name' placeholder="Name" [(ngModel)]="user.name" formControlName="name" required [ngClass]="!userUpdateForm.controls['name'].valid && userUpdateForm.controls['name'].touched ? 'invalidInput' : ''">
+
+                            <label class="invalidLabel text-danger fs-10 text-right mt-2" *ngIf="!userUpdateForm.controls['name'].valid && userUpdateForm.controls['name'].touched">The name is required.</label>        
+            	        </div>
             	    </div>
 
             	    <div class="form-group">
-            	      <label for="address" class="col-md-6 control-label">Address:</label>
-            	      <div class="col-md-12">
-            	        <input type="text" class="form-control" id="address" name='address' [(ngModel)]="user.address" placeholder="Address" formControlName="address" required>
-            	      </div>
+            	        <label for="address" class="col-md-6 control-label">Address:</label>
+            	        <div class="col-md-12">
+                	        <input type="text" class="form-control" id="address" name='address' [(ngModel)]="user.address" placeholder="Address" formControlName="address" required [ngClass]="!userUpdateForm.controls['address'].valid && userUpdateForm.controls['address'].touched ? 'invalidInput' : ''">
+
+                            <label class="invalidLabel text-danger fs-10 text-right mt-2" *ngIf="!userUpdateForm.controls['address'].valid && userUpdateForm.controls['address'].touched">The address is required.</label>
+            	        </div>
             	    </div>
+
             		<br><br>
 
             	    <div class="form-group">

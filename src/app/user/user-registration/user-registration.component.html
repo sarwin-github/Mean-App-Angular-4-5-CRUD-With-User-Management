@@ -23,35 +23,47 @@
             	    <div class="form-group">
             	      <label for="email" class="col-md-6 control-label">Email:</label>
             	      <div class="col-md-12">
-            	        <input type="text" class="form-control" id="email" name='email' placeholder="Email" [(ngModel)]="user.email" formControlName="email" required>
+            	        <input type="text" class="form-control" id="email" name='email' placeholder="Email" [(ngModel)]="user.email" formControlName="email" required [ngClass]="!userSignupForm.controls['email'].valid && userSignupForm.controls['email'].touched ? 'invalidInput' : ''">
+
+                        <!-- VALIDATION MESSAGE -->
+                        <label class="invalidLabel text-danger fs-10 text-right mt-2" *ngIf="!userSignupForm.controls['email'].valid && userSignupForm.controls['email'].touched">The email format you entered was invalid.</label>
             	      </div>
             	    </div>
 
             	    <div class="form-group">
             	      <label for="password" class="col-md-6 control-label">Password:</label>
             	      <div class="col-md-12">
-            	        <input type="password" class="form-control" id="password" name='password' placeholder="Password" [(ngModel)]="user.password" formControlName="password" required>
+            	        <input type="password" class="form-control" id="password" name='password' placeholder="Password" [(ngModel)]="user.password" formControlName="password" required [ngClass]="!userSignupForm.controls['password'].valid && userSignupForm.controls['password'].touched ? 'invalidInput' : ''">
+
+                        <!-- VALIDATION MESSAGE -->
+                        <label class="invalidLabel text-danger fs-10 text-right mt-2" *ngIf="!userSignupForm.controls['password'].valid && userSignupForm.controls['password'].touched">The password you entered was invalid.</label>
             	      </div>
             	    </div>
 
             	    <div class="form-group">
             	      <label for="confirm-password" class="col-md-6 control-label">Confirm Password:</label>
             	      <div class="col-md-12">
-            	        <input type="password" class="form-control" id="confirm-password" name='confirm-password' placeholder="Confirm Password" [(ngModel)]="user.confirmPassword" formControlName="confirmPassword" required>
+            	        <input type="password" class="form-control" id="confirm-password" name='confirm-password' placeholder="Confirm Password" [(ngModel)]="user.confirmPassword" formControlName="confirmPassword" required [ngClass]="!userSignupForm.controls['confirmPassword'].valid && userSignupForm.controls['confirmPassword'].touched ? 'invalidInput' : ''">
+
+                        <label class="invalidLabel text-danger fs-10 text-right mt-2" *ngIf="!userSignupForm.controls['confirmPassword'].valid && userSignupForm.controls['confirmPassword'].touched">The password you entered does not matched.</label>
             	      </div>
             	    </div>
 
             	    <div class="form-group">
             	      <label for="name" class="col-md-6 control-label">Name:</label>
             	      <div class="col-md-12">
-            	        <input type="text" class="form-control" id="name" name='name' placeholder="Name" [(ngModel)]="user.name" formControlName="name" required>
+            	        <input type="text" class="form-control" id="name" name='name' placeholder="Name" [(ngModel)]="user.name" formControlName="name" required [ngClass]="!userSignupForm.controls['name'].valid && userSignupForm.controls['name'].touched ? 'invalidInput' : ''">
+
+                        <label class="invalidLabel text-danger fs-10 text-right mt-2" *ngIf="!userSignupForm.controls['name'].valid && userSignupForm.controls['name'].touched">The name is required.</label>
             	      </div>
             	    </div>
 
             	    <div class="form-group">
             	      <label for="address" class="col-md-6 control-label">Address:</label>
             	      <div class="col-md-12">
-            	        <input type="text" class="form-control" id="address" name='address' [(ngModel)]="user.address" placeholder="Address" formControlName="address" required>
+            	        <input type="text" class="form-control" id="address" name='address' [(ngModel)]="user.address" placeholder="Address" formControlName="address" required [ngClass]="!userSignupForm.controls['address'].valid && userSignupForm.controls['address'].touched ? 'invalidInput' : ''">
+
+                        <label class="invalidLabel text-danger fs-10 text-right mt-2" *ngIf="!userSignupForm.controls['address'].valid && userSignupForm.controls['address'].touched">The address is required.</label>
             	      </div>
             	    </div>
             	    
