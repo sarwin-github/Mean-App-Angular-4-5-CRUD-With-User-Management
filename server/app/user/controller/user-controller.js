@@ -146,7 +146,10 @@ module.exports.deleteUser = (req, res) => {
     }
 
     req.flash('message', 'User has been successfully deleted.');
-    res.redirect(303, '/api/logout');
+    res.status(200).json({
+      success: true, 
+      message: "User has been successfully deleted."
+    });
   });
 }
 

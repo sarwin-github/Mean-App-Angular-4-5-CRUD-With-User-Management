@@ -17,7 +17,7 @@ export class UserLoginComponent implements OnInit {
 	private postReq : any;
 
 	user           : IUserInput;
-	message        : string;
+	message        : string = sessionStorage.getItem('loginMessage');
 	error          : string = sessionStorage.getItem('loginError');
 	userLoginForm : FormGroup;
 

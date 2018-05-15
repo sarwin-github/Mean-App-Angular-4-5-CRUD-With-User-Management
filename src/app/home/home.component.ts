@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { trigger, style, animate, transition } from '@angular/animations';
 
+import { fadeIn } from '../animations/fade-in';
 import { HomeService } from '../api/services/home/home.service';
 
 @Component({
 	selector: 'app-home',
+	animations: [fadeIn],
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.css'],
 	providers: [HomeService]

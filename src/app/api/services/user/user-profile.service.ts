@@ -10,6 +10,7 @@ const endpoint = 'http://localhost:4201/api';
 
 @Injectable()
 export class UserProfileService {
+	private isUserLoggedIn: any;
 
 	constructor(private http: Http, private router: Router) { }
 
@@ -44,6 +45,7 @@ export class UserProfileService {
 		.map(res => res.json())
 		.catch(this.handleError)
 	}
+
 
 	// error handler
 	private handleError(error:any, caught:any): any{

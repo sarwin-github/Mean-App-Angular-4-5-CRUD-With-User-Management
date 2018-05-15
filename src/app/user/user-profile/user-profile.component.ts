@@ -4,24 +4,27 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { fadeIn } from '../../animations/fade-in';
+import { slideInOut } from '../../animations/slide-in';
 import { UserProfileService } from '../../api/services/user/user-profile.service';
 
 @Component({
 	selector: 'app-user-profile',
-	animations: [fadeIn],
+	animations: [fadeIn, slideInOut],
 	templateUrl: './user-profile.component.html',
 	styleUrls: ['./user-profile.component.css'],
 	providers: [UserProfileService],
 })
 export class UserProfileComponent implements OnInit {
 	private req : any;
+	private deleteReq : any;
+
 	token   : string = sessionStorage.getItem('token');
 	message : string = sessionStorage.getItem('updateMessage');
-	user    : any;
+	user    : IUserInput;
 
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
-		private userProfileService: UserProfileService) {}
+		private userProfileService: UserProfileService) { this.user = <IUserInput>{}; }
 
 	ngOnInit() {
 		// modify headers
@@ -44,6 +47,33 @@ export class UserProfileComponent implements OnInit {
 		});	  
 	}
 
+	/* deleteUser - delete user
+	* parameter
+	* 	- @event : event value
+	*/
+
+	deleteUser(e){
+	  	// modify headers
+	  	let headers = new Headers();
+		  	headers.append('Authorization', this.token);
+		
+		// create request options
+		let options = new RequestOptions({headers: headers});
+
+		// execute http post request
+		this.deleteReq = this.userProfileService.deleteUser(options, this.user._id).subscribe((result) => {
+			sessionStorage.clear();
+	  		sessionStorage.setItem('loginMessage', 'Account has been successfully deleted.');
+	  		this.router.navigate(['user/login']);
+	  	},
+	  	// If error in server/api temporary navigate to error page
+		(err) => {
+			sessionStorage.setItem('sessionError', err);
+			sessionStorage.setItem('sessionUrl', this.router.url);
+			this.router.navigate(['error'])
+		});	  
+	}
+
 	// Clear error message
 	onAlertClose(): void {
 		sessionStorage.removeItem('updateMessage');
@@ -53,5 +83,11 @@ export class UserProfileComponent implements OnInit {
 	ngOnDestroy(){
 		sessionStorage.removeItem('updateMessage');
 		this.req.unsubscribe();
+		if(this.deleteReq) this.deleteReq.unsubscribe();
 	}
+}
+
+interface IUserInput{
+	email   : string;
+	_id     : string;
 }

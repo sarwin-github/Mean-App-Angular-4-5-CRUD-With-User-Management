@@ -57,7 +57,6 @@ export class UserUpdateComponent implements OnInit {
 		// execute http get request
 		this.req = this.userProfileService.getProfile(options).subscribe((result) => {
 	  		this.user = result.user;
-	  		console.log(this.user)
 	  	},
 	  	// If error in server/api temporary navigate to error page
 		(err) => {
