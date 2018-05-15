@@ -10,6 +10,7 @@ import { UserListComponent } from '../user/user-list/user-list.component';
 import { UserLoginComponent } from '../user/user-login/user-login.component';
 import { UserProfileComponent } from '../user/user-profile/user-profile.component';
 import { UserRegistrationComponent } from '../user/user-registration/user-registration.component';
+import { UserUpdateComponent } from '../user/user-update/user-update.component';
 
 import { UserLoginService } from '../api/services/user/user-login.service';
 import { UserGuard } from '../api/guards/user/user.guard';
@@ -30,6 +31,11 @@ const homeRoute: Routes = [
           path: 'profile', 
           canActivate: [UserGuard],  
           component: UserProfileComponent 
+        },
+        { 
+          path: 'update', 
+  
+          component: UserUpdateComponent 
         }
     ]}
 ];
@@ -49,7 +55,8 @@ const homeRoute: Routes = [
     UserListComponent,
     UserLoginComponent,
     UserProfileComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    UserUpdateComponent
   ],
   providers: [UserLoginService]
 })

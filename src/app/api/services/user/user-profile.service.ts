@@ -29,6 +29,21 @@ export class UserProfileService {
 		.catch(this.handleError)
 	}
 
+	// update user profile
+	profileUpdate(body:any, option:any, id: string): Observable<any>{
+		return this.http
+		.put(`${endpoint}/update/${id}`,body, option)
+		.map(res => res.json())
+		.catch(this.handleError)
+	}
+
+	// update user profile
+	deleteUser(option:any, id:string): Observable<any>{
+		return this.http
+		.delete(`${endpoint}/delete/${id}`, option)
+		.map(res => res.json())
+		.catch(this.handleError)
+	}
 
 	// error handler
 	private handleError(error:any, caught:any): any{

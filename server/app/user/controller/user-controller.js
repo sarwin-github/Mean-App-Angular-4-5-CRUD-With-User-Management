@@ -3,6 +3,7 @@ const router   = express.Router();
 const jwt      = require('jsonwebtoken');
 const passport = require("passport");
 const User     = require("../model/user");
+const async    = require('async');
 
 // get login form
 module.exports.getLogin = (req, res) => {
@@ -90,6 +91,66 @@ module.exports.getProfile = (req, res) => {
   });
 }
 
+module.exports.updateUserProfile = (req, res) => {
+    async.waterfall([
+      // find user by id
+        (callback) => {
+            let query = User.findById({ _id: req.params.id }).select({'__v': 0});
+
+            query.exec((err, user) => {
+              if(!user){
+              return res.status(404).json({
+                sucess  : false,
+                message : 'The user you are looking for does not exist.'
+              });
+            }
+              callback(err, user);
+            });
+        }, 
+        // update user
+        (user, callback) => {
+          user.name     = req.body.name;
+          user.address  = req.body.address;
+
+          user.save(err => {
+            callback(err, user);
+          });
+        }], (err) => {
+          if(err) {
+            return res.status(500).json({ 
+              sucess  : false, 
+              error   : err, 
+              message : 'Server error.'
+            });
+          }
+          req.flash('message', 'Successfully updated a user');
+          res.redirect(303, '/api/profile');
+    });
+}
+
+module.exports.deleteUser = (req, res) => {
+  let query = User.findOneAndRemove({ _id: req.params.id });
+
+  query.exec((err, user) => {
+    if(err){
+      return res.status(500).json({ 
+        sucess  : false, 
+        error   : err, 
+        message : 'Server error.'
+      });
+    } if(!user){
+      return res.status(404).json({
+        sucess  : false,
+        message : 'The user you are looking for does not exist.'
+      });
+    }
+
+    req.flash('message', 'User has been successfully deleted.');
+    res.redirect(303, '/api/logout');
+  });
+}
+
+// get list of user
 module.exports.getUserList = (req, res) => {
   let query = User.find({}).select({'__v': 0, 'password': 0});
 

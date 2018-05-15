@@ -1,26 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { trigger, style, animate, transition } from '@angular/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import {fadeIn} from '../../animations/fade-in';
 import { UserRegistrationService } from '../../api/services/user/user-registration.service';
 
 @Component({
 	selector: 'app-user-registration',
-	animations: [
-	    trigger(
-	      'enterAnimation', [
-	        transition(':enter', [
-	          style({opacity: 0}),
-	          animate('300ms', style({opacity: 1}))
-	        ]),
-	        transition(':leave', [
-	          style({opacity: 1}),
-	          animate('300ms', style({opacity: 0}))
-	        ])
-	    ])
-	],
+	animations: [fadeIn],
 	templateUrl: './user-registration.component.html',
 	styleUrls: ['./user-registration.component.css'],
 	providers: [UserRegistrationService]

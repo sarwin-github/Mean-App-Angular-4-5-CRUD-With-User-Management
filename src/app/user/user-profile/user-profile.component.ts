@@ -15,8 +15,9 @@ import { UserProfileService } from '../../api/services/user/user-profile.service
 })
 export class UserProfileComponent implements OnInit {
 	private req : any;
-	token : string = sessionStorage.getItem('token');
-	user : any;
+	token   : string = sessionStorage.getItem('token');
+	message : string = sessionStorage.getItem('updateMessage');
+	user    : any;
 
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
@@ -43,8 +44,14 @@ export class UserProfileComponent implements OnInit {
 		});	  
 	}
 
+	// Clear error message
+	onAlertClose(): void {
+		sessionStorage.removeItem('updateMessage');
+	   	this.message = undefined;
+	}
 
 	ngOnDestroy(){
+		sessionStorage.removeItem('updateMessage');
 		this.req.unsubscribe();
 	}
 }

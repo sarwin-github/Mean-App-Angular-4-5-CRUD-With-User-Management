@@ -4,16 +4,16 @@
       <div class="mb-0 mt-5 col-md-8 offset-md-2 shadow p-3 mb-5 rounded" style="background-color: rgba(38, 50, 56, 0.7)">
         <div class="text-white p-4 mx-md-4">
             <form class="form" (submit)="signUpUser($event)" [formGroup]="userSignupForm">
-            	<h5>Sample user registration</h5>
+            	<h5 class="text-uppercase text-warning">Sample user registration</h5>
 
             	<hr>
 
-                <div class="alert alert-danger alert-dismissible fade show error-message" [@enterAnimation] *ngIf="error" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show error-message" [@fadeIn] *ngIf="error" role="alert">
                   <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)="onAlertClose()">&times;</a>
                   <span [innerHtml]="error"></span>
                 </div>  
 
-                <div class="alert alert-success alert-dismissible fade show success-message" [@enterAnimation] *ngIf="message" role="alert">
+                <div class="alert alert-success alert-dismissible fade show success-message" [@fadeIn] *ngIf="message" role="alert">
                   <a href="#" class="close" data-dismiss="alert" aria-label="close" (click)="onAlertClose()">&times;</a>
                   <span [innerHtml]="message"></span>
                 </div>  

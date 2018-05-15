@@ -14,6 +14,8 @@ router.route('/signup').post(userController.signUp);
 
 router.route('/profile').get(userMiddleware.authorizeAccess, userController.getProfile);
 router.route('/list').get(userMiddleware.authorizeAccess, userController.getUserList);
+router.route('/update/:id').put(userMiddleware.authorizeAccess, userController.updateUserProfile);
+router.route('/delete/:id').delete(userMiddleware.authorizeAccess, userController.deleteUser);
 
 router.route('/logout').get(userController.getLogout);
 
