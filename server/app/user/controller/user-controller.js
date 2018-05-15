@@ -2,7 +2,7 @@ const express  = require('express');
 const router   = express.Router();
 const jwt      = require('jsonwebtoken');
 const passport = require("passport");
-const User  = require("../model/user");
+const User     = require("../model/user");
 
 // get login form
 module.exports.getLogin = (req, res) => {
@@ -89,6 +89,32 @@ module.exports.getProfile = (req, res) => {
     message: 'Successfully fetched user profile.'
   });
 }
+
+module.exports.getUserList = (req, res) => {
+  let query = User.find({}).select({'__v': 0, 'password': 0});
+
+  query.exec((err, users) => {
+    if(err){
+      return res.status(500).json({ 
+        sucess  : false, 
+        error   : err, 
+        message : 'Server error.'
+      });
+    } if(!users){
+      return res.status(404).json({
+        sucess  : false,
+        message : 'A list of users does not exist.'
+      });
+    }
+
+    res.status(200).json({
+      success   : true, 
+      message   : 'Successfully fetched the list of users.',
+      users     : users,
+    });
+  });
+}
+
 
 module.exports.getLogout = (req, res) => {
   req.logout();

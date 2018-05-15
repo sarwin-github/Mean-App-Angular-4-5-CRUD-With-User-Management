@@ -43,20 +43,6 @@ export class UserRegistrationService {
         	else return storedItem;
 	}
 
-	// logout user
-	logoutUser(): Observable<any>{
-		return this.http
-		.get('/api/user/logout', { withCredentials : true})
-		.map(res => {
-				sessionStorage.clear();
-				this.isUserLoggedIn = false;
-				this.router.navigate(['user/login']);
-				return res.json();
-			}
-		)
-		.catch(this.handleError)
-	}
-	
 	// error handler
 	private handleError(error:any, caught:any): any{
 		console.log(error, caught)

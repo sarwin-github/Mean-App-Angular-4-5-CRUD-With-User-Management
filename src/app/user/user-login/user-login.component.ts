@@ -30,7 +30,7 @@ export class UserLoginComponent implements OnInit {
 
 	user           : IUserInput;
 	message        : string;
-	error          : string;
+	error          : string = sessionStorage.getItem('loginError');
 	userLoginForm : FormGroup;
 
 	constructor(private router:Router, 
@@ -83,12 +83,12 @@ export class UserLoginComponent implements OnInit {
 	  		else {
 	  			sessionStorage.removeItem('loginError');
 	  			sessionStorage.setItem('loginMessage', 'Login was successful.');
+	  			sessionStorage.setItem('token', 'Bearer ' + result.token);
 
 	  			this.userLoginForm.reset();
-
 	  			this.message = sessionStorage.getItem('loginMessage');
     	    	this.userLoginService.setUserLogin(true);
-    			this.router.navigate(['user/list']);
+    			this.router.navigate(['user/profile']);
 	  		}
 	  	},
 	  	// If error in server/api temporary navigate to error page

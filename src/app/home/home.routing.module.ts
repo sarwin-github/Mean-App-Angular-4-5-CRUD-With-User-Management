@@ -8,6 +8,7 @@ import { AboutComponent } from '../about/about.component';
 import { HomeComponent } from './home.component';
 import { UserListComponent } from '../user/user-list/user-list.component';
 import { UserLoginComponent } from '../user/user-login/user-login.component';
+import { UserProfileComponent } from '../user/user-profile/user-profile.component';
 import { UserRegistrationComponent } from '../user/user-registration/user-registration.component';
 
 import { UserLoginService } from '../api/services/user/user-login.service';
@@ -24,6 +25,11 @@ const homeRoute: Routes = [
           path: 'list', 
           canActivate: [UserGuard],  
           component: UserListComponent 
+        },
+        { 
+          path: 'profile', 
+          canActivate: [UserGuard],  
+          component: UserProfileComponent 
         }
     ]}
 ];
@@ -42,6 +48,7 @@ const homeRoute: Routes = [
     HomeComponent,
     UserListComponent,
     UserLoginComponent,
+    UserProfileComponent,
     UserRegistrationComponent
   ],
   providers: [UserLoginService]

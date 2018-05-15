@@ -46,7 +46,7 @@ export class UserLoginService {
 	// logout user
 	logoutUser(): Observable<any>{
 		return this.http
-		.get('/api/user/logout', { withCredentials : true})
+		.get('http://localhost:4201/api/logout', { withCredentials : true})
 		.map(res => {
 				sessionStorage.clear();
 				this.isUserLoggedIn = false;

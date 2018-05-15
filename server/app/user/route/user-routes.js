@@ -13,6 +13,8 @@ router.route('/signup').get(userController.getSignupForm);
 router.route('/signup').post(userController.signUp);
 
 router.route('/profile').get(userMiddleware.authorizeAccess, userController.getProfile);
+router.route('/list').get(userMiddleware.authorizeAccess, userController.getUserList);
+
 router.route('/logout').get(userController.getLogout);
 
 module.exports = router;

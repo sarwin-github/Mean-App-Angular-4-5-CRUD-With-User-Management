@@ -24,3 +24,12 @@
 .nav{
   text-align: center;
 }
+
+.myDropdownLink{
+	color: gray !important;
+}
+
+.myDropdownLink:hover{
+	color: white !important;
+	cursor: pointer;
+}

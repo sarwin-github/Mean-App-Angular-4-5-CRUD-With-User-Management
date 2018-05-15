@@ -7,20 +7,20 @@ import { fadeIn } from '../../animations/fade-in';
 import { UserProfileService } from '../../api/services/user/user-profile.service';
 
 @Component({
-	selector: 'app-user-list',
+	selector: 'app-user-profile',
 	animations: [fadeIn],
-	templateUrl: './user-list.component.html',
-	styleUrls: ['./user-list.component.css'],
-	providers: [UserProfileService]
+	templateUrl: './user-profile.component.html',
+	styleUrls: ['./user-profile.component.css'],
+	providers: [UserProfileService],
 })
-export class UserListComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
 	private req : any;
 	token : string = sessionStorage.getItem('token');
-	users : any;
+	user : any;
 
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
-		private userProfileService: UserProfileService) { }
+		private userProfileService: UserProfileService) {}
 
 	ngOnInit() {
 		// modify headers
@@ -32,9 +32,8 @@ export class UserListComponent implements OnInit {
 		let options = new RequestOptions({headers: headers, withCredentials: true});
 
 		// execute http get request
-		this.req = this.userProfileService.getUserList(options).subscribe((result) => {
-	  		this.users = result.users;
-	  		console.log(result);
+		this.req = this.userProfileService.getProfile(options).subscribe((result) => {
+	  		this.user = result.user;
 	  	},
 	  	// If error in server/api temporary navigate to error page
 		(err) => {
@@ -48,5 +47,4 @@ export class UserListComponent implements OnInit {
 	ngOnDestroy(){
 		this.req.unsubscribe();
 	}
-
 }
