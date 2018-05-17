@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpModule, RequestOptions } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 
 import { UserGuard } from './api/guards/user/user.guard';
-
+import { CustomRequestOptions } from './api/request-options/set-auth-header';
 
 
 @NgModule({
@@ -30,7 +30,7 @@ import { UserGuard } from './api/guards/user/user.guard';
     ReactiveFormsModule,
     HomeRoutingModule
   ],
-  providers: [UserGuard],
+  providers: [UserGuard, { provide: RequestOptions, useClass: CustomRequestOptions }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

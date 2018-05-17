@@ -5,7 +5,9 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-const endpoint = 'http://localhost:4201/api';
+import { hostUrl } from '../../api-host-config/host-config';
+
+const endpoint = hostUrl + '/api';
 
 @Injectable()
 export class HomeService {

@@ -27,16 +27,8 @@ export class UserProfileComponent implements OnInit {
 		private userProfileService: UserProfileService) { this.user = <IUserInput>{}; }
 
 	ngOnInit() {
-		// modify headers
-	  	let headers = new Headers();
-		  	headers.append('Content-Type', 'application/json');
-			headers.append('Authorization', this.token);
-
-		// create request options
-		let options = new RequestOptions({headers: headers, withCredentials: true});
-
 		// execute http get request
-		this.req = this.userProfileService.getProfile(options).subscribe((result) => {
+		this.req = this.userProfileService.getProfile().subscribe((result) => {
 	  		this.user = result.user;
 	  	},
 	  	// If error in server/api temporary navigate to error page
@@ -53,15 +45,8 @@ export class UserProfileComponent implements OnInit {
 	*/
 
 	deleteUser(e){
-	  	// modify headers
-	  	let headers = new Headers();
-		  	headers.append('Authorization', this.token);
-		
-		// create request options
-		let options = new RequestOptions({headers: headers});
-
 		// execute http post request
-		this.deleteReq = this.userProfileService.deleteUser(options, this.user._id).subscribe((result) => {
+		this.deleteReq = this.userProfileService.deleteUser(this.user._id).subscribe((result) => {
 			sessionStorage.clear();
 	  		sessionStorage.setItem('loginMessage', 'Account has been successfully deleted.');
 	  		this.router.navigate(['user/login']);

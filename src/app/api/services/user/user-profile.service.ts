@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-const endpoint = 'http://localhost:4201/api';
+import { hostUrl } from '../../api-host-config/host-config';
+
+const endpoint = hostUrl + '/api';
 
 @Injectable()
 export class UserProfileService {
@@ -15,33 +17,33 @@ export class UserProfileService {
 	constructor(private http: Http, private router: Router) { }
 
 	// get user profile
-	getProfile(option:any): Observable<any>{
+	getProfile(): Observable<any>{
 		return this.http
-		.get(`${endpoint}/profile`, option)
+		.get(`${endpoint}/profile`)
 		.map(res => res.json())
 		.catch(this.handleError)
 	}
 
 	// get user list
-	getUserList(option:any): Observable<any>{
+	getUserList(): Observable<any>{
 		return this.http
-		.get(`${endpoint}/list`, option)
+		.get(`${endpoint}/list`)
 		.map(res => res.json())
 		.catch(this.handleError)
 	}
 
 	// update user profile
-	profileUpdate(body:any, option:any, id: string): Observable<any>{
+	profileUpdate(body:any, id: string): Observable<any>{
 		return this.http
-		.put(`${endpoint}/update/${id}`,body, option)
+		.put(`${endpoint}/update/${id}`, body)
 		.map(res => res.json())
 		.catch(this.handleError)
 	}
 
 	// update user profile
-	deleteUser(option:any, id:string): Observable<any>{
+	deleteUser(id:string): Observable<any>{
 		return this.http
-		.delete(`${endpoint}/delete/${id}`, option)
+		.delete(`${endpoint}/delete/${id}`)
 		.map(res => res.json())
 		.catch(this.handleError)
 	}

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { fadeIn } from '../../animations/fade-in';
@@ -23,16 +22,8 @@ export class UserListComponent implements OnInit {
 		private userProfileService: UserProfileService) { }
 
 	ngOnInit() {
-		// modify headers
-	  	let headers = new Headers();
-		  	headers.append('Content-Type', 'application/json');
-			headers.append('Authorization', this.token);
-
-		// create request options
-		let options = new RequestOptions({headers: headers, withCredentials: true});
-
 		// execute http get request
-		this.req = this.userProfileService.getUserList(options).subscribe((result) => {
+		this.req = this.userProfileService.getUserList().subscribe((result) => {
 	  		this.users = result.users;
 	  		console.log(result);
 	  	},

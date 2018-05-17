@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-const endpoint = 'http://localhost:4201/api/signup';
+import { hostUrl } from '../../api-host-config/host-config';
+
+const endpoint = hostUrl + '/api/signup';
 
 @Injectable()
 export class UserRegistrationService {

@@ -46,16 +46,8 @@ export class UserUpdateComponent implements OnInit {
 	*/
 
 	getUserProfile(){
-		// modify headers
-	  	let headers = new Headers();
-		  	headers.append('Content-Type', 'application/json');
-			headers.append('Authorization', this.token);
-
-		// create request options
-		let options = new RequestOptions({headers: headers, withCredentials: true});
-
 		// execute http get request
-		this.req = this.userProfileService.getProfile(options).subscribe((result) => {
+		this.req = this.userProfileService.getProfile().subscribe((result) => {
 	  		this.user = result.user;
 	  	},
 	  	// If error in server/api temporary navigate to error page
@@ -78,16 +70,8 @@ export class UserUpdateComponent implements OnInit {
 	  		'address'    : this.user.address,
 	  	};
 
-	  	// modify headers
-	  	let headers = new Headers();
-		  	headers.append('Content-Type', 'application/json');
-		  	headers.append('Authorization', this.token);
-		
-		// create request options
-		let options = new RequestOptions({headers: headers, withCredentials: true});
-
 		// execute http post request
-		this.postReq = this.userProfileService.profileUpdate(JSON.stringify(body), options, this.user._id).subscribe((result) => {
+		this.postReq = this.userProfileService.profileUpdate(JSON.stringify(body), this.user._id).subscribe((result) => {
 	  		// if error then throw error result 
 	  		if(result.error){
 	  			window.scroll(0, 0);
