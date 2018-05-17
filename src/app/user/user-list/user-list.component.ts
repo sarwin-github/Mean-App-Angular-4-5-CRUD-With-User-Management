@@ -25,7 +25,6 @@ export class UserListComponent implements OnInit {
 		// execute http get request
 		this.req = this.userProfileService.getUserList().subscribe((result) => {
 	  		this.users = result.users;
-	  		console.log(result);
 	  	},
 	  	// If error in server/api temporary navigate to error page
 		(err) => {
