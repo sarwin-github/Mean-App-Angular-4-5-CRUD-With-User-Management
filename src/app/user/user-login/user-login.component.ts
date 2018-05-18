@@ -43,21 +43,18 @@ export class UserLoginComponent implements OnInit {
 	*/
 
 	loginUser(e){
+		//get value from form controls
+		this.user.email    = this.userLoginForm.get('email').value;
+		this.user.password = this.userLoginForm.get('password').value;
+
 		// initialize inputs
 	  	let body  = {
 	  		'email'      : this.user.email,
 	  		'password'   : this.user.password,
 	  	};
 
-	  	// modify headers
-	  	let headers = new Headers();
-		  	headers.append('Content-Type', 'application/json');
-		
-		// create request options
-		let options = new RequestOptions({headers: headers, withCredentials: true});
-
 		// execute http post request
-		this.postReq = this.userLoginService.postLogin(JSON.stringify(body), options).subscribe((result) => {
+		this.postReq = this.userLoginService.postLogin(JSON.stringify(body)).subscribe((result) => {
 	  		// if error then throw error result 
 	  		if(result.error){
 	  			window.scroll(0, 0);

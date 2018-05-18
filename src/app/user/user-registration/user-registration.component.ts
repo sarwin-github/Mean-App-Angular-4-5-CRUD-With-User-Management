@@ -19,9 +19,11 @@ export class UserRegistrationComponent implements OnInit {
 	private postReq : any;
 
 	user           : IUserInput;
+	userSignupForm : FormGroup;
+
 	message        : string;
 	error          : string;
-	userSignupForm : FormGroup;
+	
 
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
@@ -48,24 +50,23 @@ export class UserRegistrationComponent implements OnInit {
 	*/
 
 	signUpUser(e){
+		this.user.email           = this.userSignupForm.get('email').value;
+		this.user.password        = this.userSignupForm.get('password').value;
+		this.user.confirmPassword = this.userSignupForm.get('confirmPassword').value;
+		this.user.name            = this.userSignupForm.get('name').value;
+		this.user.address         = this.userSignupForm.get('address').value;
+
 		// initialize inputs
 	  	let body  = {
-	  		'email'      : this.user.email,
-	  		'password'   : this.user.password,
+	  		'email'    : this.user.email,
+	  		'password' : this.user.password,
 	  		'confirm-password': this.user.confirmPassword,
-	  		'name'       : this.user.name,
-	  		'address'    : this.user.address,
+	  		'name'     : this.user.name,
+	  		'address'  : this.user.address,
 	  	};
 
-	  	// modify headers
-	  	let headers = new Headers();
-		  	headers.append('Content-Type', 'application/json');
-		
-		// create request options
-		let options = new RequestOptions({headers: headers, withCredentials: true});
-
 		// execute http post request
-		this.postReq = this.userRegistrationService.postSignUp(JSON.stringify(body), options).subscribe((result) => {
+		this.postReq = this.userRegistrationService.postSignUp(JSON.stringify(body)).subscribe((result) => {
 	  		// if error then throw error result 
 	  		if(result.error){
 	  			window.scroll(0, 0);

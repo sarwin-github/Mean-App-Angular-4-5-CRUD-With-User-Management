@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { fadeIn } from '../animations/fade-in';
 import { HomeService } from '../api/services/home/home.service';
 

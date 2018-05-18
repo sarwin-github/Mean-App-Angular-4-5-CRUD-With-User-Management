@@ -23,7 +23,7 @@
             	    <div class="form-group">
             	      <label for="email" class="col-md-6 control-label">Email:</label>
             	      <div class="col-md-12">
-            	        <input type="text" class="form-control" id="email" name='email' placeholder="Email" [(ngModel)]="user.email" formControlName="email" required  [ngClass]="!userLoginForm.controls['email'].valid && userLoginForm.controls['email'].touched ? 'invalidInput' : ''">
+            	        <input type="text" class="form-control" id="email" name='email' placeholder="Email" formControlName="email" required  [ngClass]="!userLoginForm.controls['email'].valid && userLoginForm.controls['email'].touched ? 'invalidInput' : ''">
 
                         <!-- VALIDATION MESSAGE -->
                         <label class="invalidLabel text-danger fs-10 text-right mt-2" *ngIf="!userLoginForm.controls['email'].valid && userLoginForm.controls['email'].touched">The email format you entered was invalid.</label>
@@ -33,7 +33,7 @@
             	    <div class="form-group">
             	      <label for="password" class="col-md-6 control-label">Password:</label>
             	      <div class="col-md-12">
-            	        <input type="password" class="form-control" id="password" name='password' placeholder="Password" [(ngModel)]="user.password" formControlName="password" required [ngClass]="!userLoginForm.controls['password'].valid && userLoginForm.controls['password'].touched ? 'invalidInput' : ''">
+            	        <input type="password" class="form-control" id="password" name='password' placeholder="Password" formControlName="password" required [ngClass]="!userLoginForm.controls['password'].valid && userLoginForm.controls['password'].touched ? 'invalidInput' : ''">
 
                         <!-- VALIDATION MESSAGE -->
                         <label class="invalidLabel text-danger fs-10 text-right mt-2" *ngIf="!userLoginForm.controls['password'].valid && userLoginForm.controls['password'].touched">The password you entered was invalid.</label>
@@ -51,7 +51,6 @@
             	        <button class="px-5 mr-3 btn btn-danger" type="reset">Reset</button>
             	        <button class="px-5 btn btn-warning" type="submit">Login</button>
             	      </div>
-
             	    </div>
             	</fieldset>
             </form>

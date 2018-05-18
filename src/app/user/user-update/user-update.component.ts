@@ -42,12 +42,16 @@ export class UserUpdateComponent implements OnInit {
 		this.getUserProfile();  
 	}
 
-	/* getUserProfile - get user details for update
-	*/
-
+	/* getUserProfile - get user details for update */
 	getUserProfile(){
 		// execute http get request
 		this.req = this.userProfileService.getProfile().subscribe((result) => {
+			// Set form value
+	  		this.userUpdateForm.setValue({
+	  			'name'   : result.user.name,
+	  			'address': result.user.address
+	  		});
+
 	  		this.user = result.user;
 	  	},
 	  	// If error in server/api temporary navigate to error page
@@ -64,6 +68,9 @@ export class UserUpdateComponent implements OnInit {
 	*/
 
 	updateUser(e){
+		this.user.name    = this.userUpdateForm.get('name').value;
+		this.user.address = this.userUpdateForm.get('address').value;
+
 		// initialize inputs
 	  	let body  = {
 	  		'name'       : this.user.name,

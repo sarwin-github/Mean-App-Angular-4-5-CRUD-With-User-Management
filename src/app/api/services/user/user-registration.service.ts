@@ -25,9 +25,9 @@ export class UserRegistrationService {
 	}
 
 	// post signup user
-	postSignUp(body: any, option:any): Observable<any>{
+	postSignUp(body: any): Observable<any>{
 		return this.http
-		.post(`${endpoint}`, body, option)
+		.post(`${endpoint}`, body, { withCredentials : true})
 		.map(res => res.json())
 		.catch(this.handleError)
 	}

@@ -35,7 +35,7 @@ export class UserProfileService {
 	// update user profile
 	profileUpdate(body:any, id: string): Observable<any>{
 		return this.http
-		.put(`${endpoint}/update/${id}`, body)
+		.put(`${endpoint}/update/${id}`, body, { withCredentials : true})
 		.map(res => res.json())
 		.catch(this.handleError)
 	}
