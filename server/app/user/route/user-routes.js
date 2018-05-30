@@ -1,5 +1,4 @@
 const express   = require('express');
-const csrf      = require('csurf');
 const router    = express();
 
 const userController = require('../controller/user-controller');
