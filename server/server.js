@@ -20,7 +20,7 @@ const favicon        = require('serve-favicon');
 // Set database connection
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 const databaseConfig = require('./config/mongo-db-context');
-const env = process.env.NODE_EN || 'local';
+const env = process.env.NODE_EN || 'dev';
 console.log(`NODE_EN: ${env}`);
 databaseConfig.pickEnv(env, app);
 		
