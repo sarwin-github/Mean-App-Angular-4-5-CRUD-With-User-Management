@@ -95,7 +95,7 @@ passport.use('passport-signup', new LocalStrategy({
 
         let newUser = new User();
 
-        newUser.email    = req.body.email;
+        newUser.email    = req.body.email.toLowerCase();
         newUser.password = newUser.generateHash(password);
         newUser.name     = req.body.name;
         newUser.address  = req.body.address;

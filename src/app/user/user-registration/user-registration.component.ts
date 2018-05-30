@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import {fadeIn} from '../../animations/fade-in';
 import { UserRegistrationService } from '../../api/services/user/user-registration.service';
+import { UserLoginService } from '../../api/services/user/user-login.service';
 import { PasswordValidation } from '../../api/guards/password-validation/password-validation';
 
 @Component({
@@ -12,11 +13,12 @@ import { PasswordValidation } from '../../api/guards/password-validation/passwor
 	animations: [fadeIn],
 	templateUrl: './user-registration.component.html',
 	styleUrls: ['./user-registration.component.css'],
-	providers: [UserRegistrationService]
+	providers: [UserRegistrationService, UserLoginService]
 })
 export class UserRegistrationComponent implements OnInit {
 	private req     : any;
 	private postReq : any;
+	private loginReq : any;
 
 	user           : IUserInput;
 	userSignupForm : FormGroup;
@@ -28,7 +30,8 @@ export class UserRegistrationComponent implements OnInit {
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
 		private formBuilder: FormBuilder,
-		private userRegistrationService: UserRegistrationService) {
+		private userRegistrationService: UserRegistrationService,
+		private userLoginService: UserLoginService) {
 			this.user = <IUserInput>{};
 		}
 
@@ -79,13 +82,17 @@ export class UserRegistrationComponent implements OnInit {
 	  		// if no error, execute login validation
 	  		else {
 	  			sessionStorage.removeItem('signupError');
-	  			sessionStorage.setItem('signupMessage', 'Registration was successful.');
 
-	  			this.userSignupForm.reset();
+    			// After successful signup execute login request to server
+    			this.loginReq = this.userLoginService.postLogin(JSON.stringify(body)).subscribe((user) => {
+		  			sessionStorage.setItem('loginMessage', 'Login was successful.');
+		  			sessionStorage.setItem('token', 'Bearer ' + user.token);
 
-	  			this.message = sessionStorage.getItem('signupMessage');
-    	    	this.userRegistrationService.setUserLogin(true);
-    			this.router.navigate(['user/registration']);
+		  			this.userSignupForm.reset();
+		  			this.message = sessionStorage.getItem('loginMessage');
+	    	    	this.userLoginService.setUserLogin(true);
+	    			this.router.navigate(['user/profile']);
+	  			});
 	  		}
 	  	},
 	  	// If error in server/api temporary navigate to error page
@@ -109,6 +116,7 @@ export class UserRegistrationComponent implements OnInit {
 		sessionStorage.removeItem('signupMessage');
 
 		if(this.postReq) this.postReq.unsubscribe();
+		if(this.loginReq) this.loginReq.unsubscribe();
 	}
 }
 
