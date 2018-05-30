@@ -20,8 +20,9 @@ export class UserUpdateComponent implements OnInit {
   	user           : IUserInput;
   	userUpdateForm : FormGroup;
 
-	error : string;
-	token : string = sessionStorage.getItem('token');
+  	message : string;
+	error   : string;
+	token   : string = sessionStorage.getItem('token');
 	
 
 	constructor(private router:Router, 

@@ -74,5 +74,7 @@ export class UserProfileComponent implements OnInit {
 
 interface IUserInput{
 	email   : string;
+	name    : string;
+	address : string;
 	_id     : string;
 }
