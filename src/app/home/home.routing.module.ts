@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AboutComponent } from '../about/about.component';
 import { HomeComponent } from './home.component';
+import { ErrorComponent } from '../error/error.component';
 import { UserListComponent } from '../user/user-list/user-list.component';
 import { UserLoginComponent } from '../user/user-login/user-login.component';
 import { UserProfileComponent } from '../user/user-profile/user-profile.component';
@@ -18,6 +19,7 @@ import { UserGuard } from '../api/guards/user/user.guard';
 const homeRoute: Routes = [
   	{ path: '', component: HomeComponent },
     { path: 'about', component: AboutComponent },
+    { path: 'error', component: ErrorComponent },
   	{ path: 'user', 
       children: [
         { path: 'registration', component: UserRegistrationComponent },
@@ -34,7 +36,7 @@ const homeRoute: Routes = [
         },
         { 
           path: 'update', 
-  
+          canActivate: [UserGuard],  
           component: UserUpdateComponent 
         }
     ]}
@@ -52,6 +54,7 @@ const homeRoute: Routes = [
   declarations: [
     AboutComponent,
     HomeComponent,
+    ErrorComponent,
     UserListComponent,
     UserLoginComponent,
     UserProfileComponent,
